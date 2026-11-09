@@ -90,28 +90,35 @@ const canvas = document.getElementById('rings');
     //graph
 const int_graph = document.getElementById('intensity-graph');
 const graph = int_graph.getContext('2d');
-graph.clearRect(0, 0, 700, 200);
+graph.clearRect(0, 0, 700, 215);
 // Axis labels
 graph.save();
-graph.fillStyle = `rgba(${r}, ${g}, ${b}, 1)`;
+graph.fillStyle = `rgba(255, 255, 255, 1)`;
 graph.font = "14px Arial";
 graph.textAlign = "center";
-
-graph.fillText("Radial distance (mm)", 350, 198);
-
+graph.fillText("Radial distance (mm)", 350, 210);
 graph.translate(15, 90);
 graph.rotate(-Math.PI / 2);
-graph.fillText("Intensity", 0, 350);
-
+graph.fillText("Intensity (%)", 0, 350);
 graph.restore();
 const midX = 350;
 const midY = 180;
-
 graph.line = (x1, y1, x2, y2) => { graph.beginPath(); graph.moveTo(x1, y1); graph.lineTo(x2, y2); graph.stroke(); };
-graph.strokeStyle = `rgba(${r}, ${g}, ${b}, 0.6)`; 
+graph.strokeStyle = `rgba(255,255,255, 0.6)`; 
 graph.line(midX, 0, midX, 200); 
 graph.line(0, midY, 700, midY);
-
+graph.fillStyle = "white";
+graph.font = "10px Arial";
+graph.textAlign = "center";
+for (let x = 50; x <= 650; x += 50) {
+    graph.line(x, midY - 3, x, midY + 3);
+    graph.fillText((((x - midX) / scalefactor) * 1000).toFixed(1), x, midY + 12);
+}
+graph.textAlign = "right";
+for (let y = 20; y < midY; y += 20) {
+    graph.line(midX - 3, y, midX + 3, y);
+    graph.fillText(midY - y, midX - 6, y + 3);
+}
 graph.beginPath();
 graph.strokeStyle = `rgba(${r}, ${g}, ${b}, 1)`;
 
