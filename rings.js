@@ -91,12 +91,24 @@ const canvas = document.getElementById('rings');
 const int_graph = document.getElementById('intensity-graph');
 const graph = int_graph.getContext('2d');
 graph.clearRect(0, 0, 700, 200);
+// Axis labels
+graph.save();
+graph.fillStyle = `rgba(${r}, ${g}, ${b}, 1)`;
+graph.font = "14px Arial";
+graph.textAlign = "center";
 
+graph.fillText("Radial distance (mm)", 350, 198);
+
+graph.translate(15, 90);
+graph.rotate(-Math.PI / 2);
+graph.fillText("Intensity", 0, 350);
+
+graph.restore();
 const midX = 350;
 const midY = 180;
 
 graph.line = (x1, y1, x2, y2) => { graph.beginPath(); graph.moveTo(x1, y1); graph.lineTo(x2, y2); graph.stroke(); };
-graph.strokeStyle = `rgba(${r}, ${g}, ${b}, 0.2)`; 
+graph.strokeStyle = `rgba(${r}, ${g}, ${b}, 0.6)`; 
 graph.line(midX, 0, midX, 200); 
 graph.line(0, midY, 700, midY);
 
